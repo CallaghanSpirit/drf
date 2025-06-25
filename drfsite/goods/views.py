@@ -13,9 +13,37 @@ class GoodsAPIView(APIView):
         lst = Goods.objects.all().values()
         return Response({"goods": list(lst)})
     def post(self, request):
-        post_new = Goods.objects.create(name=request.data['name'],
-                                         cats_id=request.data['cats_id'])
-        return Response({"post":model_to_dict(post_new)})
+        serializer = GoodsSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+
+        return Response({"post":serializer.data})
+    
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method PUT not allowed"})
+
+        try:
+            instance = Goods.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object does not exists"})
+
+        serializer = GoodsSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post":serializer.data})
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"})
+        try:
+            instance = Goods.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object does not exists"})
+        instance.delete()
+        return Response({"post": "delete post " + str(pk)})
 
 
 # class GoodsAPIView(generics.ListAPIView):

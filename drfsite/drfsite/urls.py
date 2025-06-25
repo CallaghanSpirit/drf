@@ -21,4 +21,6 @@ from goods.views import GoodsAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/goodslist/",GoodsAPIView.as_view()),
+    path("api/v1/goodslist/<int:pk>/",GoodsAPIView.as_view()),
+
 ]
