@@ -10,20 +10,10 @@ class GoodsModel:
 
     
         
-class GoodsSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=255)
-    cats_id = serializers.IntegerField()
-    def create(self, validated_data):
-        return Goods.objects.create(**validated_data)
-    def update(self, instance, validated_data):
-        instance.name = validated_data.get("name", instance.name)
-        instance.cats_id = validated_data.get("cats_id", instance.cats_id)
-        instance.save()
-        return instance
-    def delete(self, instance):
-        instance.delete()
-        return instance
-
+class GoodsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goods
+        fields = ("name","cats")
 
 # def encode():
 #     model = GoodsModel(name="MyName")
