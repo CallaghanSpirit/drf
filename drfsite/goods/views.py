@@ -8,6 +8,10 @@ from django.forms.models import model_to_dict
 from .models import Goods
 from .serializers import GoodsSerializer
 
+class GoodsAPIList(generics.ListCreateAPIView):
+    queryset = Goods.objects.all()
+    serializer_class = GoodsSerializer
+
 class GoodsAPIView(APIView):
     def get(self, request):
         lst = Goods.objects.all().values()
