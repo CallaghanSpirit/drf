@@ -12,6 +12,7 @@ class Goods(models.Model):
     status = models.BooleanField(Status,default=Status.OUT_OF_STOKE)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     time_update = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, verbose_name='Пользователь')
     
 
     
