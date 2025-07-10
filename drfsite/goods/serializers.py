@@ -3,17 +3,14 @@ from .models import Goods
 from  rest_framework.parsers import JSONParser
 from  rest_framework.renderers import JSONRenderer
 import io
-class GoodsModel:
-    def __init__(self, name):
-        self.name = name
-
 
     
         
 class GoodsSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Goods
-        fields = ("name","cats")
+        fields = ("name","cats",'user')
 
 # def encode():
 #     model = GoodsModel(name="MyName")
