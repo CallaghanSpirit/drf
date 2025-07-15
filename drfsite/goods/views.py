@@ -4,8 +4,10 @@ from rest_framework.views import APIView
 from django.forms.models import model_to_dict
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAdminUser,IsAuthenticated
 from .permissions import *
+from rest_framework.authentication import TokenAuthentication
+
 
 # Create your views here.
 
@@ -36,7 +38,8 @@ class GoodsAPIList(generics.ListCreateAPIView):
 class GoodsAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    authentication_classes = (TokenAuthentication,) #TokenAuthentication
 
 class GoodsAPIDelete(generics.RetrieveDestroyAPIView):
     queryset = Goods.objects.all()
