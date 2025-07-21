@@ -39,7 +39,7 @@ class GoodsAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     permission_classes = (IsAuthenticated, )
-    authentication_classes = (TokenAuthentication,) #TokenAuthentication
+    # authentication_classes = (TokenAuthentication,) #TokenAuthentication
 
 class GoodsAPIDelete(generics.RetrieveDestroyAPIView):
     queryset = Goods.objects.all()
